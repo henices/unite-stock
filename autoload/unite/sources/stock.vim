@@ -14,6 +14,11 @@ let s:source_stock_5d = {
             \ 'description' : '新浪股票五档',
             \ 'hooks' : {}}
 
+let s:source_stock_dp = {
+            \ 'name' : 'stock/dp',
+            \ 'description' : '新浪股票大盘',
+            \ 'hooks' : {}}
+
 let s:unite_source = [s:source_stock_hq, s:source_stock_5d]
 
 function! s:http_get()
@@ -41,7 +46,6 @@ function! s:get_dang_info()
 
     let l:stock_info = [
             \ "股票名称 : ". l:list[0],
-            \ "股票代码 : ". s:stock_code,
             \ "当前价格 : ". '*'. l:list[3],
             \ "--------------------",
             \ "买一     : ". l:list[10],
