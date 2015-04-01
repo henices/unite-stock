@@ -40,6 +40,10 @@ function! s:get_dang_info()
     endif
 
     let l:stock_info = [
+            \ "股票名称 : ". l:list[0],
+            \ "股票代码 : ". s:stock_code,
+            \ "当前价格 : ". '*'. l:list[3],
+            \ "--------------------",
             \ "买一     : ". l:list[10],
             \ "买一报价 : ". l:list[11],
             \ "买二     : ". l:list[12],
