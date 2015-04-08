@@ -81,7 +81,8 @@ function! s:get_stock_info()
     endif
 
 
-    let l:up =  (str2float(l:list[3]) - str2float(l:list[2])) * 100 / l:list[2]
+    let l:up =  (str2float(l:list[3]) - str2float(l:list[2])) * 100 / str2float(l:list[2])
+
     let l:stock_info = [
             \ "股票名称 : ". l:list[0],
             \ "股票代码 : ". s:stock_code,
