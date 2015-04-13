@@ -25,11 +25,22 @@ function! s:http_get()
 
     let l:suggest_url = '"http://suggest3.sinajs.cn/suggest/type=&key=' . s:input . '&name=suggestdata_1427680265517"'
     let l:suggest_ret = system('curl -s ' . suggest_url  . ' | iconv -f gbk -t utf-8')
-    let l:suggest_info = matchstr(suggest_ret, '"\zs.\{-}"\ze')
-    let s:stock_code = split(suggest_info, ",")[3]
+    let l:suggest_info = matchstr(suggest_ret, '"\zs.\{-}\ze"')
+    let l:stock_info_mul = split(l:suggest_info, ';')
+
+    let l:stock_info =
+        \ filter(l:stock_info_mul, 'v:val =~ "sh[0-9]" || v:val =~ "sz[0-9]"')
+
+    if len(l:stock_info) == 1
+        let s:stock_code = split(l:stock_info[0], ',')[3]
+    else
+        echo l:stock_info
+        let l:stock_index = unite#util#input('Enter stock index: ', '')
+        let s:stock_code = split(l:stock_info[l:stock_index], ',')[3]
+    endif
 
     let l:content = system('curl -s http://hq.sinajs.cn/list=' . s:stock_code . ' | iconv -f gbk -t utf-8')
-    let l:info = matchstr(content, '"\zs.\{-}"\ze')
+    let l:info = matchstr(content, '"\zs.\{-}\ze"')
 
     let l:list = split(info, ",")
     return list
