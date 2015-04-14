@@ -34,7 +34,12 @@ function! s:http_get()
     if len(l:stock_info) == 1
         let s:stock_code = split(l:stock_info[0], ',')[3]
     else
-        echo l:stock_info
+        let l:i = 0
+        while l:i < len(l:stock_info)
+            echo l:i . ': ' . split(l:stock_info[l:i], ',')[4]
+            let l:i = l:i + 1
+        endwhile
+
         let l:stock_index = unite#util#input('Enter stock index: ', '')
         let s:stock_code = split(l:stock_info[l:stock_index], ',')[3]
     endif
