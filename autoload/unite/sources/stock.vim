@@ -23,7 +23,7 @@ let s:unite_source = [s:source_stock_hq, s:source_stock_5d]
 
 function! s:http_get()
 
-    let l:suggest_url = '"http://suggest3.sinajs.cn/suggest/type=&key=' . s:input . '&name=suggestdata_1427680265517"'
+    let l:suggest_url = '"http://suggest3.sinajs.cn/suggest/type=&key=' . s:input . '"'
     let l:suggest_ret = system('curl -s ' . suggest_url  . ' | iconv -f gbk -t utf-8')
     let l:suggest_info = matchstr(suggest_ret, '"\zs.\{-}\ze"')
     let l:stock_info_mul = split(l:suggest_info, ';')
