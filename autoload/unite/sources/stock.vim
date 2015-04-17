@@ -31,6 +31,7 @@ function! s:http_get()
     else
         echo "\n"
         let l:i = 0
+        echo "\n"
         while l:i < len(l:stock_info)
             echo l:i . ': ' . split(l:stock_info[l:i], ',')[4]
             let l:i = l:i + 1
