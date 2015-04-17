@@ -14,11 +14,6 @@ let s:source_stock_5d = {
             \ 'description' : '新浪股票五档',
             \ 'hooks' : {}}
 
-let s:source_stock_dp = {
-            \ 'name' : 'stock/dp',
-            \ 'description' : '新浪股票大盘',
-            \ 'hooks' : {}}
-
 let s:unite_source = [s:source_stock_hq, s:source_stock_5d]
 
 function! s:http_get()
@@ -34,6 +29,7 @@ function! s:http_get()
     if len(l:stock_info) == 1
         let s:stock_code = split(l:stock_info[0], ',')[3]
     else
+        echo "\n"
         let l:i = 0
         while l:i < len(l:stock_info)
             echo l:i . ': ' . split(l:stock_info[l:i], ',')[4]
@@ -129,7 +125,6 @@ endfunction
 " http://suggest3.sinajs.cn/suggest/type=&key=lmkj&name=suggestdata_1427680265517
 " http://hq.sinajs.cn/list=sz300369
 " var suggestdata_1427680265517="lmkj,11,300369,sz300369,绿盟科技,lmkj";
-" http://hq.sinajs.cn/rn=1427697590107&list=s_sh000001,s_sz399001
 " http://hq.sinajs.cn/rn=1427697590184&list=s_sh601668,s_sh601800
 
 function! s:source_stock_hq.change_candidates(args, context)
