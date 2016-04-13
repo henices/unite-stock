@@ -12,7 +12,8 @@ let s:source_stock_hq = {
 let s:source_stock_5d = {
             \ 'name' : 'stock/5d',
             \ 'description' : '新浪股票五档',
-            \ 'hooks' : {}}
+            \ 'hooks' : {},
+            \ 'syntax' : 'uniteSource__Stock'}
 
 let s:unite_source = [s:source_stock_hq, s:source_stock_5d]
 
@@ -148,11 +149,27 @@ endfunction
 function! s:source_stock_hq.hooks.on_syntax(args, context)
     syntax match uniteSource__stock_kw /:\|\*/
                 \ contained containedin=uniteSource__Stock
-    syntax match uniteSource__stock_pos / .\+%/
+    syntax match uniteSource__stock_up / \(\d\|\.\)\+%/
                 \ contained containedin=uniteSource__Stock
-    highlight default link uniteSource__stock_kw Keyword
-    highlight default link uniteSource__stock_pos Constant
+    syntax match uniteSource__stock_down / \-\(\d\|\.\)\+%/
+                \ contained containedin=uniteSource__Stock
+    highlight default link uniteSource__stock_kw Function
+    highlight default link uniteSource__stock_up Float
+    highlight default link uniteSource__stock_down String
 endfunction
+
+function! s:source_stock_5d.hooks.on_syntax(args, context)
+    syntax match uniteSource__stock_kw /:/
+                \ contained containedin=uniteSource__Stock
+    syntax match uniteSource__stock_buy /买/
+                \ contained containedin=uniteSource__Stock
+    syntax match uniteSource__stock_sell /卖/
+                \ contained containedin=uniteSource__Stock
+    highlight default link uniteSource__stock_kw Function
+    highlight default link uniteSource__stock_buy Float
+    highlight default link uniteSource__stock_sell String
+endfunction
+
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
